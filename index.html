@@ -1,6 +1,116 @@
 <!DOCTYPE html>
 <html lang="sw">
 <head>
+  <meta charset="UTF-8">
+  <title>Dashboard ya Vitabu</title>
+  <style>
+    body {
+      font-family: Arial;
+      margin: 0;
+      background: #f4f4f4;
+    }
+    header {
+      background: #333;
+      color: white;
+      padding: 15px;
+      text-align: center;
+    }
+    .container {
+      padding: 20px;
+    }
+    .card {
+      background: white;
+      padding: 15px;
+      margin: 10px;
+      border-radius: 10px;
+      display: inline-block;
+      cursor: pointer;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    .hidden {
+      display: none;
+    }
+    button {
+      margin-top: 10px;
+      padding: 8px 12px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Dashboard</h1>
+</header>
+
+<div class="container">
+
+  <!-- HOME -->
+  <div id="home">
+    <div class="card" onclick="showSection('categories')">
+      📚 Vitabu
+    </div>
+  </div>
+
+  <!-- CATEGORIES -->
+  <div id="categories" class="hidden">
+    <h2>Chagua Category</h2>
+    
+    <div class="card" onclick="showBooks('riwaya')">Riwaya</div>
+    <div class="card" onclick="showBooks('elimu')">Elimu</div>
+
+    <br>
+    <button onclick="goHome()">⬅ Rudi Home</button>
+  </div>
+
+  <!-- BOOKS -->
+  <div id="books" class="hidden">
+    <h2 id="categoryTitle"></h2>
+    <ul id="bookList"></ul>
+
+    <button onclick="showSection('categories')">⬅ Rudi Categories</button>
+  </div>
+
+</div>
+
+<script>
+  const books = {
+    riwaya: ["Riwaya 1", "Riwaya 2", "Riwaya 3"],
+    elimu: ["Hisabati", "Sayansi", "Historia"]
+  };
+
+  function showSection(section) {
+    document.getElementById('home').classList.add('hidden');
+    document.getElementById('categories').classList.add('hidden');
+    document.getElementById('books').classList.add('hidden');
+
+    document.getElementById(section).classList.remove('hidden');
+  }
+
+  function goHome() {
+    showSection('home');
+  }
+
+  function showBooks(category) {
+    showSection('books');
+
+    document.getElementById('categoryTitle').innerText = "Vitabu vya " + category;
+
+    const list = document.getElementById('bookList');
+    list.innerHTML = "";
+
+    books[category].forEach(book => {
+      const li = document.createElement('li');
+      li.textContent = book;
+      list.appendChild(li);
+    });
+  }
+</script>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="sw">
+<head>
 <meta charset="UTF-8">
 <title>Smart Edu Pro</title>
 
