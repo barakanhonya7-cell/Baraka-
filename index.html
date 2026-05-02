@@ -7,8 +7,8 @@
 <style>
 body { font-family: Arial; margin:0; background:#eef2ff; }
 
-/* LOGIN */
-.login {
+/* BOX */
+.box {
   width:320px;
   margin:80px auto;
   background:white;
@@ -17,78 +17,97 @@ body { font-family: Arial; margin:0; background:#eef2ff; }
   box-shadow:0 0 10px gray;
   text-align:center;
 }
+
 input { width:90%; padding:10px; margin:8px; }
-button { width:95%; padding:10px; background:#1e3a8a; color:white; border:none; }
+
+button {
+  width:95%;
+  padding:10px;
+  background:#1e3a8a;
+  color:white;
+  border:none;
+}
 
 /* DASHBOARD */
 header { display:none; background:#1e3a8a; color:white; padding:15px; text-align:center; }
-
 .container { display:none; padding:20px; }
-
-.grid {
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-  gap:10px;
-}
 
 .card {
   background:white;
   padding:15px;
+  margin:10px 0;
   border-radius:10px;
-  box-shadow:0 0 5px #ccc;
-  cursor:pointer;
 }
-
-.card:hover { background:#dbeafe; }
 </style>
 </head>
 
 <body>
 
-<div class="login" id="loginBox">
-  <h2>🔐 Smart Edu Pro</h2>
-  <input id="email" placeholder="Email">
-  <input id="pass" type="password" placeholder="Password">
-  <button onclick="login()">Login</button>
-  <p>Demo: admin / 1234</p>
+<!-- LOGIN -->
+<div class="box" id="loginBox">
+  <h2>🔐 Login</h2>
+  <input id="loginUser" placeholder="Username">
+  <input id="loginPass" type="password" placeholder="Password">
+  <button onclick="login()">Ingia</button>
+  <p>Huna account? <a href="#" onclick="showRegister()">Register</a></p>
 </div>
 
+<!-- REGISTER -->
+<div class="box" id="registerBox" style="display:none;">
+  <h2>📝 Register</h2>
+  <input id="regUser" placeholder="Username">
+  <input id="regPass" type="password" placeholder="Password">
+  <button onclick="register()">Create Account</button>
+  <p>Una account? <a href="#" onclick="showLogin()">Login</a></p>
+</div>
+
+<!-- DASHBOARD -->
 <header id="header">
-  <h1>📚 Smart Edu Pro Dashboard</h1>
+  <h1>📚 Smart Edu Portal</h1>
 </header>
 
 <div class="container" id="app">
-
-<h2>📘 Masomo</h2>
-<div class="grid">
-  <div class="card">Math</div>
-  <div class="card">Physics</div>
-  <div class="card">Chemistry</div>
-  <div class="card">Biology</div>
-  <div class="card">English</div>
-  <div class="card">ICT</div>
-</div>
-
-<h2>📖 Vitabu</h2>
-<div class="grid">
-  <div class="card">Download Math Book PDF</div>
-  <div class="card">Physics Notes</div>
-  <div class="card">Chemistry Guide</div>
-</div>
-
+  <div class="card">📘 Hisabati</div>
+  <div class="card">🔬 Sayansi</div>
+  <div class="card">📖 English</div>
 </div>
 
 <script>
-function login(){
-  let e=document.getElementById("email").value;
-  let p=document.getElementById("pass").value;
+// Hifadhi user kwenye browser
+let savedUser = "";
+let savedPass = "";
 
-  if(e=="admin" && p=="1234"){
+// Switch screens
+function showRegister(){
+  document.getElementById("loginBox").style.display="none";
+  document.getElementById("registerBox").style.display="block";
+}
+
+function showLogin(){
+  document.getElementById("registerBox").style.display="none";
+  document.getElementById("loginBox").style.display="block";
+}
+
+// Register
+function register(){
+  savedUser = document.getElementById("regUser").value;
+  savedPass = document.getElementById("regPass").value;
+
+  alert("Account created!");
+  showLogin();
+}
+
+// Login
+function login(){
+  let u = document.getElementById("loginUser").value;
+  let p = document.getElementById("loginPass").value;
+
+  if(u === savedUser && p === savedPass){
     document.getElementById("loginBox").style.display="none";
     document.getElementById("header").style.display="block";
     document.getElementById("app").style.display="block";
   } else {
-    alert("Login failed");
+    alert("Login incorrect!");
   }
 }
 </script>
